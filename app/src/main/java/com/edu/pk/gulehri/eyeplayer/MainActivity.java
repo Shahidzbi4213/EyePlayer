@@ -1,6 +1,5 @@
 package com.edu.pk.gulehri.eyeplayer;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.edu.pk.gulehri.eyeplayer.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,14 +30,19 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
-        String[] allVideoPath = getAllVideoPath(this);
+        if (!(ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED) &&
+                !(ActivityCompat.checkSelfPermission(this, CAMERA) == PERMISSION_GRANTED)) {
 
+            ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE
+                    , CAMERA}, 1);
 
-        binding.videoRecycle.setLayoutManager(new LinearLayoutManager(this));
-        binding.videoRecycle.setAdapter(new VideosAdapter(allVideoPath));
+            ActivityCompat.recreate(this);
+        } else {
+            String[] allVideoPath = getAllVideoPath(this);
+            binding.videoRecycle.setLayoutManager(new LinearLayoutManager(this));
+            binding.videoRecycle.setAdapter(new VideosAdapter(allVideoPath));
+        }
 
 
     }
@@ -56,4 +62,9 @@ public class MainActivity extends AppCompatActivity {
         return pathArrList.toArray(new String[0]);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 }

@@ -9,9 +9,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="#DC6666"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
 
@@ -22,7 +19,7 @@
 
             <ImageView
                 android:id="@+id/imgThumb"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:contentDescription="Nothing"

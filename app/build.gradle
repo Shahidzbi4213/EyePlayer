@@ -40,5 +40,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.Pradyuman7:LookAtMe:Version2.0'
-    implementation 'com.github.hendrawd:StorageUtil:1.0.0'
 }
